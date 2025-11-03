@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday!</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Open+Sans:wght@300&family=Josefin+Sans:wght@500&family=Noto+Sans:ital,wght@1,700&family=Source+Sans+Pro:wght@300&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #faf9f6;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Common Page Setup */
+.page {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  min-height: 100vh;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+.active { display: block; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #C12869;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+p {
+  color: #000;
+  font-weight: 300;
+  font-size: 1.1em;
+  max-width: 650px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  }
+  .stars { color: #C12869; font-size: 1.5em; margin: 20px 0; }
+button {
+  background-color: #C12869;
+  color: #faf9f6;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background-color: #d43f7b; }
+
+/* PAGE 2 GRID */
+.grid { display: grid; grid-template-columns: repeat(3,80px); grid-gap:15px; justify-content:center; margin-top:30px; }
+.box { width:80px; height:80px; border:2px solid #C12869; border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:2em; }
+.heart { color:#C12869; }
+.cross { color:black; }
+#congrats { display:none; margin-top:25px; font-weight:bold; color:#C12869; }
+
+/* PAGE 3 */
+.envelope-container { display:flex; justify-content:center; margin-top:40px; }
+.envelope-image {
+  width:85%; max-width:500px; border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* PAGE 4 */
+#page4 { border:2px solid #C12869; border-radius:10px; padding:20px; margin:30px auto; max-width:500px; background:#faf9f6; box-shadow:0 6px 18px rgba(0,0,0,0.1); }
+#page4 h1{font-family:'Josefin Sans'; color:black;}
+#page4 h2{font-family:'Noto Sans'; font-style:italic; color:#C12869;}
+#page4 h3{font-family:'Playfair Display'; font-style:italic; color:#C12869;}
+#page4 p{font-family:'Source Sans Pro';}
+
+/* PAGE 5 */
+.inner-page {
+  background:#faf9f6; border-radius:20px; box-shadow:0 8px 18px rgba(0,0,0,0.15);
+  padding:40px 30px; max-width:500px; margin:40px auto; position:relative;
+}
+.inner-page img { position:absolute; bottom:10px; right:15px; width:80px; border-radius:10px; }
+.thin{font-weight:300;}
+.thank{font-family:'Playfair Display'; font-style:italic; color:#C12869; font-size:2em;}
+.bold{font-family:'Open Sans'; font-weight:700; color:black; margin-bottom:15px;}
+
+/* PAGE 6 */
+.outer-card{background:#faf9f6; border-radius:15px; box-shadow:0 8px 18px rgba(0,0,0,0.15); padding:25px; max-width:600px; margin:50px auto;}
+.inner-card{border:2px solid #C12869; border-radius:15px; overflow:hidden; max-width:550px; margin:20px auto; position:relative;}
+.image-container{display:flex; transition:transform 0.6s ease-in-out; width:200%;}
+.image-container img{width:50%; object-fit:cover;}
+.swipe-btn{background:none; border:none; color:#C12869; font-size:2em; cursor:pointer; position:absolute; right:10px; top:45%;}
+.details{display:flex; justify-content:space-between; margin-top:10px; color:black; font-style:italic;}
+
+/* PAGE 7 SONGS */
+.song-page{background:#faf9f6; border-radius:20px; box-shadow:0 8px 18px rgba(0,0,0,0.15); padding:30px; max-width:600px; margin:50px auto;}
+.song-page h1{font-family:'Playfair Display'; font-style:italic; color:#C12869;}
+.song-container{border:2px solid #C12869; border-radius:15px; padding:15px; margin-top:25px; position:relative; overflow:hidden;}
+.song-image{width:100%; border-radius:10px;}
+.play-controls{margin-top:20px;}
+.play-btn{background:#C12869; border:none; color:white; border-radius:75%; width:75px; height:75px; font-size:1.75em;}
+.progress-bar{width:80%; height:6px; background:#f3d6e0; border-radius:5px; margin:10px auto; position:relative;}
+.progress{height:6px; background:#C12869; width:0%; border-radius:5px;}
+.swipe-song{background:none; border:none; color:#C12869; font-size:2em; cursor:pointer; position:absolute; right:10px; top:45%;}
+.bottom-info{display:flex; justify-content:space-between; margin-top:15px; color:black; font-style:italic;}
+.now-playing{color:#C12869; font-weight:bold; margin-top:15px; font-style:italic; animation:fadeText 10s infinite alternate;}
+
+@keyframes fadeText {
+  from {opacity:0.4;}
+  to {opacity:1;}
+}
+
+/* PAGE 8 */
+.final-page{background:#faf9f6; border-radius:20px; box-shadow:0 8px 18px rgba(0,0,0,0.15); padding:40px 30px; max-width:600px; margin:40px auto;}
+.final-page h1{color:#C12869; font-family:'Playfair Display'; font-style:italic;}
+.final-page p{font-family:'Open Sans'; color:black;}
+.final-bold{font-family:'Playfair Display'; font-weight:bold; color:#C12869;}
+.final-sub{font-family:'Playfair Display';color:black; font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>Happy Birthday Idiot!</h1>
+  <p>You’ve always been my biggest supporter and my human diary 💫<br>I just want you to know how lucky I am to have you as Bestfriend.</p>
+  <div class="stars">✦ ✦ ✦</div>
+  <button onclick="nextPage(2)">Next →</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1 style="font-style:normal;">Fill the Hearts</h1>
+  <div class="grid">
+    <div class="box heart">🩷</div><div class="box cross">×</div><div class="box cross">×</div>
+    <div class="box cross">×</div><div class="box" id="empty"></div><div class="box cross">×</div>
+    <div class="box cross">×</div><div class="box cross">×</div><div class="box heart">🩷</div>
+  </div>
+  <div id="congrats">Congrats! You've filled the Heart 🩷</div>
+  <button style="margin-top:30px;" onclick="nextPage(3)">Next →</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1 style="font-style:normal;">A Letter for You</h1>
+  <div class="envelope-container">
+    <img src="https://i.imgur.com/ZmVptFY.png" alt="Envelope" class="envelope-image">
+  </div>
+  <button style="margin-top:40px;" onclick="nextPage(4)">Next →</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <h1>A LETTER</h1>
+  <h2>- FROM YOUR BESTFRIEND</h2>
+  <h3>Dear Harsh💗</h3>
+  <p>
+I just wanted you to know how special you're to me. I genuinely don't know where I'd be without you. You've seen me at my absolute best and my most embarrassing worst, yet you've always treated every version of me with unconditional love and support. There's just so much to say and express that I don't know how to pen it down here. Thank you for accepting me with all my flaws, and for making me feel good about myself when I feel like shit. If I had hurt you in any situation, I'm really sorryy. I know I fight a lot for little things. I never meant to hurt youu. I wish you continued growth, and all the success and happiness you could possibly dream of because you deserve every single good thing coming your way. I'm so excited to see everything you accomplish. Here's to celebrating you today and to many more years of irreplaceable friendship.💞
+  </p>
+  <button onclick="nextPage(5)">Next →</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="page5">
+  <div class="inner-page">
+    <h3 class="thin">✧ With Love ✧</h3>
+    <div class="thank">Thank You</div>
+    <div class="bold">FOR ALWAYS BEING THERE</div>
+    <p>You make every small thing brighter and happier. I’m lucky to have you — thanks for being the sweetest part of my days. 🍫✨</p>
+    <p style="font-family:'Dancing Script', cursive; color:black;">- made with 💗, chocolates & sparkles✨</p>
+    <img src="https://i.imgur.com/KA4WYp4.jpeg" alt="corner image">
+  </div>
+  <button onclick="nextPage(6)">Next →</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="page6">
+  <div class="outer-card">
+    <h1 style="font-family:'Playfair Display', serif; font-style:italic; color:#C12869;">Special Cards</h1>
+    <div class="inner-card">
+      <div class="image-container" id="imageSlider">
+        <img src="https://i.imgur.com/gezOqH4.jpeg" alt="Card 1">
+        <img src="https://i.imgur.com/3nDFVKo.jpeg" alt="Card 2">
+      </div>
+      <button class="swipe-btn" onclick="swipeImage()">›</button>
+    </div>
+    <div class="details">
+      <span>Date: Nov 19th 2025</span>
+      <span>Validity: Forever ♾️</span>
+    </div>
+  </div>
+  <button onclick="nextPage(7)">Next →</button>
+</div>
+
+<!-- PAGE 7 SONGS -->
+<div class="page" id="page7">
+  <div class="song-page">
+    <h1>Your Favourite Songs ♡</h1>
+    <div class="song-container">
+      <img src="https://i.imgur.com/jDXq8hK.jpeg" alt="Song 1" class="song-image" id="songImage">
+      <button class="swipe-song" onclick="nextSong()">›</button>`
+      <div class="play-controls">
+        <h3 id="songTitle" style="color:#C12869; margin-bottom:10px;">Shikayat - by aur</h3>
+        <audio id="audioPlayer" controls>
+          <source src="https://files.catbox.moe/5kh6s3.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="now-playing" id="nowPlaying">Now Playing ♪</div>
+      </div>
+    </div>
+    <div class="bottom-info">
+      <span>Date: Nov 19th 2025</span>
+      <span>Validity: Forever ♾️</span>
+    </div>
+  </div>
+  <button onclick="nextPage(8)">Next →</button>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="page8">
+  <div class="final-page">
+    <h1>I Hope I Made You Smile..</h1>
+    <p>Your friendship is a gift I treasure every day..</p>
+    <p>I Hate You So Much..🫶🏻💗</p>
+    <p><span class="final-bold">Made with Love</span> <span class="final-sub">- Valid Forever</span></p>
+  </div>
+</div>
+
+<script>
+function nextPage(num){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const next=document.getElementById('page'+num);
+  next.classList.add('active');
+  next.style.animation="fadeInUp 1s forwards";
+}
+
+/* Page2 heart */
+const emptyBox=document.getElementById('empty');
+const congratsText=document.getElementById('congrats');
+emptyBox.addEventListener('click',()=>{
+  emptyBox.textContent='🩷';
+  emptyBox.classList.add('heart');
+  congratsText.style.display='block';
+});
+
+/* Page6 swipe */
+let currentImage=0;
+function swipeImage(){
+  const slider=document.getElementById('imageSlider');
+  currentImage=(currentImage+1)%2;
+  slider.style.transform=`translateX(-${currentImage*50}%)`;
+}
+
+/* PAGE 7 SONGS */
+let currentSong = 0;
+const songs = [
+  {
+    title: "Shikayat - by aur",
+    img: "https://i.imgur.com/jDXq8hK.jpeg",
+    src: "https://files.catbox.moe/5kh6s3.mp3"
+  },
+  {
+    title: "Kanmani Anbodu Kadhalan",
+    img: "https://i.imgur.com/mg2V7gN.jpeg",
+    src: "https://files.catbox.moe/f47ghu.mp3"
+  }
+];
+
+const songImage = document.getElementById('songImage');
+const songTitle = document.getElementById('songTitle');
+const audioPlayer = document.getElementById('audioPlayer');
+
+function nextSong() {
+  currentSong = (currentSong + 1) % songs.length;
+  songImage.src = songs[currentSong].img;
+  songTitle.textContent = songs[currentSong].title;
+  audioPlayer.src = songs[currentSong].src;
+  audioPlayer.play();
+}
+</script>
+
+</body>
+</html>
